@@ -1,9 +1,0 @@
-package com.shopme.question.vote;
-
-import org.springframework.stereotype.Controller;
-
-@Controller
-public class QuestionVoteRestController {
-
-	
-}

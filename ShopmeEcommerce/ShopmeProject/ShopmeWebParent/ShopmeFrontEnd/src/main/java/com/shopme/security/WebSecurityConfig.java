@@ -20,14 +20,14 @@ import com.shopme.security.oauth.OAuth2LoginSuccessHandler;
 public class WebSecurityConfig {
 
 	@Autowired
-	 private CustomerOAuth2UserService oAuth2UserService;
+	private CustomerOAuth2UserService oAuth2UserService;
 
 	@Autowired
-	 private OAuth2LoginSuccessHandler oauth2LoginHandler;
-	
+	private OAuth2LoginSuccessHandler oauth2LoginHandler;
+
 	@Autowired
 	private DatabaseLoginSuccessHandler databaseLoginHandler;
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -50,38 +50,22 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests.requestMatchers("/account_details", "/update_account_details", "/orders/**", 
-				"/cart", "/address_book/**", "/place_order", "reviews/**", "process_paypal_order", "/write_review/**").authenticated()
-				.requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll().anyRequest().permitAll())
-		.formLogin(formLogin ->
-        formLogin
-            .loginPage("/login")
-            .usernameParameter("email")
-            .successHandler(databaseLoginHandler)
-            .permitAll()
-    )
-    .oauth2Login(oauth2Login ->
-        oauth2Login
-            .loginPage("/login")
-            .userInfoEndpoint(userInfo ->
-                userInfo
-                    .userService(oAuth2UserService)
-            )
-            .successHandler(oauth2LoginHandler)
-    )
-    .rememberMe(rememberMe ->
-        rememberMe
-            .key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ")
-            .tokenValiditySeconds(14 * 24 * 60 * 60)
-    )
-    .sessionManagement(sessionManagement ->
-    sessionManagement
-        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-    )
-    .logout(logout ->
-        logout
-            .permitAll()
-    );
+		http.authorizeHttpRequests((requests) -> requests
+				.requestMatchers("/account_details", "/update_account_details", "/orders/**", "/cart",
+						"/address_book/**", "/place_order", "reviews/**", "process_paypal_order", "/write_review/**",
+						"/post_review", "/ask_question/**", "/post_question/**", "/customer/questions/**")
+				.authenticated().requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll().anyRequest()
+				.permitAll())
+				.formLogin(formLogin -> formLogin.loginPage("/login").usernameParameter("email")
+						.successHandler(databaseLoginHandler).permitAll())
+				.oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
+						.userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
+						.successHandler(oauth2LoginHandler))
+				.rememberMe(rememberMe -> rememberMe.key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ")
+						.tokenValiditySeconds(14 * 24 * 60 * 60))
+				.sessionManagement(
+						sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+				.logout(logout -> logout.permitAll());
 
 		return http.build();
 	}

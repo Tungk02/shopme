@@ -29,4 +29,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 			+ "WHERE p.id = ?1")
 	@Modifying
 	public void updateReviewCountAndAverageRating(Integer productId);
+	
+
+	@Query("SELECT p FROM Product p WHERE p.enabled=true AND p.brand.id=?1")
+	public Page<Product> listByBrand(Integer brandId, Pageable pageable);
 }

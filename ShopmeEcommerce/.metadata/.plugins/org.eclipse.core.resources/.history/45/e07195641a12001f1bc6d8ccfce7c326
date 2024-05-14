@@ -1,5 +1,0 @@
-package com.shopme.brand;
-
-public interface BrandRepository {
-
-}

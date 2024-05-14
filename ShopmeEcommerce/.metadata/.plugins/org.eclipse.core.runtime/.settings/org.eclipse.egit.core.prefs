@@ -1,4 +1,4 @@
-GitRepositoriesView.GitDirectories=
-GitRepositoriesView.GitDirectories.relative=
+GitRepositoriesView.GitDirectories=H\:\\ShopmeEcommerce\\ShopmeProject\\.git;D\:\\DACN\\shopme\\.git;
+GitRepositoriesView.GitDirectories.relative=ShopmeProject\\.git;D\:\\DACN\\shopme\\.git;
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1
