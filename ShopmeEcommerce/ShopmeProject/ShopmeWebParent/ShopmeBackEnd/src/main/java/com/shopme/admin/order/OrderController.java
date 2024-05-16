@@ -33,111 +33,113 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class OrderController {
 
-private String defaultRedirectURL = "redirect:/orders/page/1?sortField=orderTime&sortDir=desc";
-	
-	@Autowired private OrderService orderService;
-	@Autowired private SettingService settingService;
+	private String defaultRedirectURL = "redirect:/orders/page/1?sortField=orderTime&sortDir=desc";
+
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private SettingService settingService;
 
 	@GetMapping("/orders")
 	public String listFirstPage() {
 		return defaultRedirectURL;
 	}
-	
+
 	@GetMapping("/orders/page/{pageNum}")
 	public String listByPage(
 			@PagingAndSortingParam(listName = "listOrders", moduleURL = "/orders") PagingAndSortingHelper helper,
-			@PathVariable(name = "pageNum") int pageNum,
-			HttpServletRequest request,
+			@PathVariable(name = "pageNum") int pageNum, HttpServletRequest request,
 			@AuthenticationPrincipal ShopmeUserDetails loggedUser) {
 
 		orderService.listByPage(pageNum, helper);
 		loadCurrencySetting(request);
-		
+
 		if (!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Salesperson") && loggedUser.hasRole("Shipper")) {
 			return "orders/orders_shipper";
 		}
-		
+
 		return "orders/orders";
 	}
-	
+
 	private void loadCurrencySetting(HttpServletRequest request) {
 		List<Setting> currencySettings = settingService.getCurrencySettings();
-		
+
 		for (Setting setting : currencySettings) {
 			request.setAttribute(setting.getKey(), setting.getValue());
-		}	
-	}	
-	
+		}
+	}
+
 	@GetMapping("/orders/detail/{id}")
-	public String viewOrderDetails(@PathVariable("id") Integer id, Model model, 
-			RedirectAttributes ra, HttpServletRequest request,
-			@AuthenticationPrincipal ShopmeUserDetails loggedUser) {
+	public String viewOrderDetails(@PathVariable("id") Integer id, Model model, RedirectAttributes ra,
+			HttpServletRequest request, @AuthenticationPrincipal ShopmeUserDetails loggedUser) {
 		try {
 			Order order = orderService.get(id);
-			loadCurrencySetting(request);			
-			
+			loadCurrencySetting(request);
+
 			boolean isVisibleForAdminOrSalesperson = false;
-			
+
 			if (loggedUser.hasRole("Admin") || loggedUser.hasRole("Salesperson")) {
 				isVisibleForAdminOrSalesperson = true;
 			}
-			
+
 			model.addAttribute("isVisibleForAdminOrSalesperson", isVisibleForAdminOrSalesperson);
 			model.addAttribute("order", order);
-			
+
 			return "orders/order_details_modal";
 		} catch (OrderNotFoundException ex) {
 			ra.addFlashAttribute("message", ex.getMessage());
 			return defaultRedirectURL;
 		}
-		
+
 	}
-	
+
 	@GetMapping("/orders/delete/{id}")
 	public String deleteOrder(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
 		try {
-			orderService.delete(id);;
+			orderService.delete(id);
+			;
 			ra.addFlashAttribute("message", "The order ID " + id + " has been deleted.");
 		} catch (OrderNotFoundException ex) {
 			ra.addFlashAttribute("message", ex.getMessage());
 		}
-		
+
 		return defaultRedirectURL;
 	}
-	
+
 	@GetMapping("/orders/edit/{id}")
 	public String editOrder(@PathVariable("id") Integer id, Model model, RedirectAttributes ra,
 			HttpServletRequest request) {
 		try {
-			Order order = orderService.get(id);;
-			
+			Order order = orderService.get(id);
+			;
+
 			List<Country> listCountries = orderService.listAllCountries();
-			
+
 			model.addAttribute("pageTitle", "Edit Order (ID: " + id + ")");
 			model.addAttribute("order", order);
 			model.addAttribute("listCountries", listCountries);
-			
+
 			return "orders/order_form";
-			
+
 		} catch (OrderNotFoundException ex) {
 			ra.addFlashAttribute("message", ex.getMessage());
 			return defaultRedirectURL;
 		}
-		
-	}	
-	
+
+	}
+
 	@PostMapping("/order/save")
 	public String saveOrder(Order order, HttpServletRequest request, RedirectAttributes ra) {
 		String countryName = request.getParameter("countryName");
 		order.setCountry(countryName);
-		
+
 		updateProductDetails(order, request);
 		updateOrderTracks(order, request);
 
-		orderService.save(order);		
-		
+		orderService.save(order);
+
 		ra.addFlashAttribute("message", "The order ID " + order.getId() + " has been updated successfully");
-		
+
 		return defaultRedirectURL;
 	}
 
@@ -146,28 +148,28 @@ private String defaultRedirectURL = "redirect:/orders/page/1?sortField=orderTime
 		String[] trackStatuses = request.getParameterValues("trackStatus");
 		String[] trackDates = request.getParameterValues("trackDate");
 		String[] trackNotes = request.getParameterValues("trackNotes");
-		
+
 		List<OrderTrack> orderTracks = order.getOrderTracks();
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
-		
+
 		for (int i = 0; i < trackIds.length; i++) {
 			OrderTrack trackRecord = new OrderTrack();
-			
+
 			Integer trackId = Integer.parseInt(trackIds[i]);
 			if (trackId > 0) {
 				trackRecord.setId(trackId);
 			}
-			
+
 			trackRecord.setOrder(order);
 			trackRecord.setStatus(OrderStatus.valueOf(trackStatuses[i]));
 			trackRecord.setNotes(trackNotes[i]);
-			
+
 			try {
 				trackRecord.setUpdatedTime(dateFormatter.parse(trackDates[i]));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
+
 			orderTracks.add(trackRecord);
 		}
 	}
@@ -180,9 +182,9 @@ private String defaultRedirectURL = "redirect:/orders/page/1?sortField=orderTime
 		String[] quantities = request.getParameterValues("quantity");
 		String[] productSubtotals = request.getParameterValues("productSubtotal");
 		String[] productShipCosts = request.getParameterValues("productShipCost");
-		
+
 		Set<OrderDetail> orderDetails = order.getOrderDetails();
-		
+
 		for (int i = 0; i < detailIds.length; i++) {
 			System.out.println("Detail ID: " + detailIds[i]);
 			System.out.println("\t Prodouct ID: " + productIds[i]);
@@ -190,13 +192,13 @@ private String defaultRedirectURL = "redirect:/orders/page/1?sortField=orderTime
 			System.out.println("\t Quantity: " + quantities[i]);
 			System.out.println("\t Subtotal: " + productSubtotals[i]);
 			System.out.println("\t Ship cost: " + productShipCosts[i]);
-			
+
 			OrderDetail orderDetail = new OrderDetail();
 			Integer detailId = Integer.parseInt(detailIds[i]);
 			if (detailId > 0) {
 				orderDetail.setId(detailId);
 			}
-			
+
 			orderDetail.setOrder(order);
 			orderDetail.setProduct(new Product(Integer.parseInt(productIds[i])));
 			orderDetail.setProductCost(Float.parseFloat(productDetailCosts[i]));
@@ -204,11 +206,11 @@ private String defaultRedirectURL = "redirect:/orders/page/1?sortField=orderTime
 			orderDetail.setShippingCost(Float.parseFloat(productShipCosts[i]));
 			orderDetail.setQuantity(Integer.parseInt(quantities[i]));
 			orderDetail.setUnitPrice(Float.parseFloat(productPrices[i]));
-			
+
 			orderDetails.add(orderDetail);
-			
+
 		}
-		
+
 	}
-	
+
 }

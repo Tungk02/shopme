@@ -15,7 +15,7 @@ import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "brands")
-public class Brand extends IdBasedEntity{
+public class Brand extends IdBasedEntity {
 
 	@Column(nullable = false, length = 45, unique = true)
 	private String name;
@@ -40,6 +40,10 @@ public class Brand extends IdBasedEntity{
 		super();
 		this.id = id;
 		this.name = name;
+	}
+
+	public Brand(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {

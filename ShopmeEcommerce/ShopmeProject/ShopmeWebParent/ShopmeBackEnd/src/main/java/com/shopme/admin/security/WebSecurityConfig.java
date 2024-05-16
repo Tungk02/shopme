@@ -40,7 +40,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                 		.requestMatchers("/states/list_by_country/**").hasAnyAuthority("Admin", "Salesperson")
                 		.requestMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
-                		.requestMatchers("/categories/**", "/brands/**", "/articles/**", "/menus/**").hasAnyAuthority("Admin","Editor")
+                		.requestMatchers("/categories/**", "/brands/**", "/articles/**", "/menus/**", "/sections/**").hasAnyAuthority("Admin","Editor")
                 		
                 		.requestMatchers("/products/new", "/products/delete/**").hasAnyAuthority("Admin", "Editor")
                 		
@@ -49,7 +49,7 @@ public class WebSecurityConfig {
                 		.requestMatchers("/products", "/products/", "/products/detail/**", "/products/page/**")
                 			.hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
                 			
-                		.requestMatchers("/products/**").hasAnyAuthority("Admin", "Editor")
+                		.requestMatchers("/products/**", "/menus/**", "/articles/**").hasAnyAuthority("Admin", "Editor")
                 		
                 		.requestMatchers("/orders", "/orders/", "/orders/page/**", "/orders/detail/**").hasAnyAuthority("Admin", "Salesperson", "Shipper")
                 		

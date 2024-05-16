@@ -1,13 +1,12 @@
 package com.shopme.common.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "roles")
-public class Role extends IdBasedEntity{
+public class Role extends IdBasedEntity {
 
 	@Column(length = 40, nullable = false, unique = true)
 	private String name;
@@ -73,14 +72,9 @@ public class Role extends IdBasedEntity{
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return this.name;
 	}
 
-	
-
-	
-	
 }
