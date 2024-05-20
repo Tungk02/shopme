@@ -7,11 +7,11 @@ Tính năng:
 
 Phát triển trang web mua sắm hoàn chỉnh: 
 - Mô tả quá trình phát triển trang web mua sắm từ đầu đến cuối, bao gồm quản lý người dùng, danh mục, nhãn hàng, sản phẩm, khách hàng, đơn hàng, báo cáo bán hàng.
+  
 Tích hợp thanh toán qua PayPal và thẻ tín dụng:
-
 - Mô tả quá trình mã hóa tính năng giỏ hàng và thanh toán sử dụng API PayPal Checkout và thẻ tín dụng.
+  
 Xây dựng chức năng đăng nhập và ủy quyền dựa trên vai trò:
-
 - Sử dụng Spring Security để xác thực và ủy quyền người dùng dựa trên vai trò.
 - Spring OAuth để đăng nhập mạng xã hội với Facebook và Google.
   
