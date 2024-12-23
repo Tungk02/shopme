@@ -17,6 +17,8 @@ Mô tả: Website thương mại điện tử được phát triển bằng sử
 ![Brand Page](https://raw.githubusercontent.com/Tungk02/shopme/b0fd72fc886200bdcb34c7aa973c567d9706d53d/Screenshot%202024-12-21%20212810.png)
 ## ProductList Page:
 ![ProductList Page](https://raw.githubusercontent.com/Tungk02/shopme/b15c73ba49efb5fd75c89e9802dee80aeceedea4/Screenshot%202024-12-21%20212840.png)
+## Sales Report Page:
+![Sales Report Page](https://raw.githubusercontent.com/Tungk02/shopme/3b0e4f7f9b0d0b62b386d4625ffd8546aebabc17/Screenshot%202024-12-23%20213239.png)
 
 ## Shopme FrontEnd:
 ![Shopme](https://raw.githubusercontent.com/Tungk02/shopme/5d3abfd39ca9f1329ca24fdeb8db1c7a265b82f8/Screenshot%202024-12-21%20212703.png)
