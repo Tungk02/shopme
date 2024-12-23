@@ -2,12 +2,19 @@
 Dự án Website thương mại điện tử
 Thành viên : 1 
 Mô tả: Website thương mại điện tử được phát triển bằng sử dụng các công nghệ như Java, Spring Boot, Thymeleaf, Bootstrap, jQuery và MySQL. Trang web này cung cấp một trải nghiệm mua sắm hoàn chỉnh cho khách hàng.
+## Shopme BackEnd:
 ## Categories Page: 
 ![Categories Page](https://raw.githubusercontent.com/Tungk02/shopme/refs/heads/main/Screenshot%202024-12-21%20212754.png)
 ## Brand Page:
 ![Brand Page](https://raw.githubusercontent.com/Tungk02/shopme/b0fd72fc886200bdcb34c7aa973c567d9706d53d/Screenshot%202024-12-21%20212810.png)
 ## ProductList Page:
 ![ProductList Page](https://raw.githubusercontent.com/Tungk02/shopme/b15c73ba49efb5fd75c89e9802dee80aeceedea4/Screenshot%202024-12-21%20212840.png)
+
+## Shopme FrontEnd:
+![Shopme](https://raw.githubusercontent.com/Tungk02/shopme/5d3abfd39ca9f1329ca24fdeb8db1c7a265b82f8/Screenshot%202024-12-21%20212703.png)
+![Shopme Product](https://raw.githubusercontent.com/Tungk02/shopme/f3056e3d36968a164e9120831ef9f6e5f4689a99/Screenshot%202024-12-21%20212724.png)
+![Product description](https://raw.githubusercontent.com/Tungk02/shopme/f3056e3d36968a164e9120831ef9f6e5f4689a99/Screenshot%202024-12-21%20213837.png)
+![Product Detail](https://raw.githubusercontent.com/Tungk02/shopme/f3056e3d36968a164e9120831ef9f6e5f4689a99/Screenshot%202024-12-21%20213904.png)
 ## Tính năng: 
 
 Phát triển trang web mua sắm hoàn chỉnh: 
