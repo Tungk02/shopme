@@ -2,9 +2,9 @@
 Dự án Website thương mại điện tử
 Thành viên : 1 
 Mô tả: Website thương mại điện tử được phát triển bằng sử dụng các công nghệ như Java, Spring Boot, Thymeleaf, Bootstrap, jQuery và MySQL. Trang web này cung cấp một trải nghiệm mua sắm hoàn chỉnh cho khách hàng.
-Manage categories: 
-https://raw.githubusercontent.com/Tungk02/shopme/refs/heads/main/Screenshot%202024-12-21%20212754.png
-Tính năng: 
+## Categories Page: 
+![Categories Page](https://raw.githubusercontent.com/Tungk02/shopme/refs/heads/main/Screenshot%202024-12-21%20212754.png)
+## Tính năng: 
 
 Phát triển trang web mua sắm hoàn chỉnh: 
 - Mô tả quá trình phát triển trang web mua sắm từ đầu đến cuối, bao gồm quản lý người dùng, danh mục, nhãn hàng, sản phẩm, khách hàng, đơn hàng, báo cáo bán hàng.
